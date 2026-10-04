@@ -101,13 +101,7 @@
         416
       ],
       "id": "5de7c10f-8fa2-4bda-85f0-1a0809c61c8e",
-      "name": "SerpAPI",
-      "credentials": {
-        "serpApi": {
-          "id": "crGDPo2f8os3edXX",
-          "name": "SerpAPI account"
-        }
-      }
+      "name": "SerpAPI"
     },
     {
       "parameters": {
@@ -124,7 +118,7 @@
     },
     {
       "parameters": {
-        "endpointUrl": "https://gursimarankaur.app.n8n.cloud/mcp/dc093ca7-20b6-420f-a85c-400c68dbc6b9",
+        "endpointUrl": "https://your-instance.n8n.cloud/mcp/YOUR_MCP_SERVER_PATH",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
@@ -153,14 +147,7 @@
         208
       ],
       "id": "741bcece-6071-413d-946b-5662688cb03c",
-      "name": "OpenAI Chat Model",
-      "credentials": {
-        "openAiApi": {
-          "id": null,
-          "name": "",
-          "__aiGatewayManaged": true
-        }
-      }
+      "name": "OpenAI Chat Model"
     },
     {
       "parameters": {
@@ -179,14 +166,7 @@
         416
       ],
       "id": "882e0cf5-f179-415f-8ba1-ea9a635cb540",
-      "name": "OpenAI Chat Model1",
-      "credentials": {
-        "openAiApi": {
-          "id": null,
-          "name": "",
-          "__aiGatewayManaged": true
-        }
-      }
+      "name": "OpenAI Chat Model1"
     },
     {
       "parameters": {
@@ -205,14 +185,7 @@
         544
       ],
       "id": "f03bef8b-81e5-4ebc-b6d0-e0a62396473d",
-      "name": "OpenAI Chat Model2",
-      "credentials": {
-        "openAiApi": {
-          "id": null,
-          "name": "",
-          "__aiGatewayManaged": true
-        }
-      }
+      "name": "OpenAI Chat Model2"
     }
   ],
   "pinData": {},
@@ -346,8 +319,7 @@
   },
   "versionId": "99a91dc5-b272-4ced-bdf6-503e2b7ea480",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "74b2a00307aaae75232488389b08d4321d5f940645b5bfb5530bcc7e1150ed6d"
+    "templateCredsSetupCompleted": true
   },
   "nodeGroups": [],
   "id": "g4qxAHcpCOqKHSUM",

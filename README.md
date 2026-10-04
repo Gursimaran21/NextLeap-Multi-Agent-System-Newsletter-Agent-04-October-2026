@@ -92,7 +92,7 @@ flowchart TB
 
     subgraph TOOLS["🛠️ TOOLS — owned by sub-agents"]
         SA["🔍 SerpAPI<br/><i>web search</i>"]
-        MC["🔌 MCP Client<br/><i>your-instance/mcp/dc093ca7…</i>"]
+        MC["🔌 MCP Client<br/><i>your-instance/mcp/YOUR_PATH…</i>"]
     end
 
     subgraph EXTS["🌍 External services (via MCP Server workflow)"]
@@ -280,7 +280,7 @@ NextLeap-Built-MCP-Server-and-Client-04-October-2026/
 └── MCP Server.json   ← provides "update Google Doc" + "send Gmail"
 ```
 
-Both repositories use the **same trigger path** (`dc093ca7-20b6-420f-a85c-400c68dbc6b9`) because the Newsletter agent was built on top of that server.
+Both repositories use the **same trigger path** (`YOUR_MCP_SERVER_PATH`) because the Newsletter agent was built on top of that server.
 
 Import it, activate it, then copy its MCP endpoint URL.
 
@@ -295,7 +295,7 @@ Import it, activate it, then copy its MCP endpoint URL.
 | `SerpAPI` | `SerpApi account` | Web search API key |
 | `OpenAI Chat Model` / `1` / `2` | `OpenAI account` | Needed only when self-hosting |
 
-> 🔴 **Critical:** the exported `MCP Client` endpoint points at the original author's n8n Cloud instance — `https://gursimarankaur.app.n8n.cloud/mcp/dc093ca7-…`. **Replace it with your own** or the Newsletter agent will fail on delivery.
+> 🔴 **Critical:** the committed `MCP Client` endpoint is a placeholder — `https://your-instance.n8n.cloud/mcp/YOUR_MCP_SERVER_PATH`. **Replace both parts with your own** or the Newsletter agent will fail on delivery.
 
 ### Step 3 — Activate and test
 
