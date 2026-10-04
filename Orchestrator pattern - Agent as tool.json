@@ -1,0 +1,362 @@
+{
+  "name": "Orchestrator pattern - Agent as tool",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant who can do research and newsletter creation and delivery. You have necessary agents as tools to do research and for newsletter creation and delivery.\nDo not invoke any agent more than once.\nWhen you receive any topic from the user, do research and create a newsletter and send it out on Gmail and update the Google doc."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        256,
+        0
+      ],
+      "id": "7316c468-1e96-4ea0-b70d-8d0ff91f1392",
+      "name": "Orchestrator"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "12959c22-abbf-4891-9ce5-05329c294008",
+      "name": "When chat message received",
+      "webhookId": "5bafc0cd-c64e-494d-907a-f1ce9cf05cf6"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 100
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        272,
+        208
+      ],
+      "id": "2441324f-ef4e-4ad7-82d5-6c1bc97d5cd0",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Research agent which can do web search, deep research to find relevant information for any topic.\nCall this agent only when you want to do any research.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "You are a research assistant which can do web search, deep research to find relevant information for any topic. You can leverage the serpapi tool to do web searches. Do not use the tool more than 3 times."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 3,
+      "position": [
+        416,
+        208
+      ],
+      "id": "ab0d6441-ef11-4681-8197-cada1dedc031",
+      "name": "Research agent"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Newsletter agent can create beautiful html content for a newsletter and can send it out on email and create a document with the same newsletter content.\nCall this agent when you want to create, send or upload the newsletter",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "You are a Newsletter agent who can create beautiful html content for a newsletter and can send it out on email and create a document on Google Drive with the same newsletter content.\nYou have necessary tools to send the email and to update content on a existing Google drive document."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 3,
+      "position": [
+        672,
+        192
+      ],
+      "id": "549a89c8-ce90-4369-a47e-d06461bad68c",
+      "name": "Newsletter agent"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        432,
+        416
+      ],
+      "id": "fd4c0af9-bf41-4fa4-82cb-1960990e412b",
+      "name": "Simple Memory1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        576,
+        416
+      ],
+      "id": "5de7c10f-8fa2-4bda-85f0-1a0809c61c8e",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "crGDPo2f8os3edXX",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        800,
+        432
+      ],
+      "id": "09b1f936-aab1-41b9-bd82-c5910bfec366",
+      "name": "Simple Memory2"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://gursimarankaur.app.n8n.cloud/mcp/dc093ca7-20b6-420f-a85c-400c68dbc6b9",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.2,
+      "position": [
+        912,
+        400
+      ],
+      "id": "22361945-0d83-4e95-a66e-6f64f6c9de70",
+      "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        128,
+        208
+      ],
+      "id": "741bcece-6071-413d-946b-5662688cb03c",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        288,
+        416
+      ],
+      "id": "882e0cf5-f179-415f-8ba1-ea9a635cb540",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        688,
+        544
+      ],
+      "id": "f03bef8b-81e5-4ebc-b6d0-e0a62396473d",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Orchestrator",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Newsletter agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "Research agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "Research agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory2": {
+      "ai_memory": [
+        [
+          {
+            "node": "Newsletter agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "Newsletter agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Orchestrator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Research agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Newsletter agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "99a91dc5-b272-4ced-bdf6-503e2b7ea480",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "74b2a00307aaae75232488389b08d4321d5f940645b5bfb5530bcc7e1150ed6d"
+  },
+  "nodeGroups": [],
+  "id": "g4qxAHcpCOqKHSUM",
+  "tags": [
+    {
+      "name": "N8N Class",
+      "id": "OuMwf6PqkwGTVo0R",
+      "updatedAt": "2026-10-04T14:12:28.602Z",
+      "createdAt": "2026-10-04T14:12:28.602Z"
+    }
+  ]
+}
